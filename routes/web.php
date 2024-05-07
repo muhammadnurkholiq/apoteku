@@ -11,6 +11,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// dashboard
 Route::get('/dashboard', [ProductController::class, 'buyerIndex'])->name('dashboard')->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
@@ -23,6 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.show');
     Route::delete('/cart/remove/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
+    // transactions
+    Route::post('/transactions', [TransactionsController::class, 'store'])->name('transactions.store');
+
+    // admin
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('products', ProductController::class)->middleware('role:owner');
         Route::resource('categories', CategoryController::class)->middleware('role:owner');

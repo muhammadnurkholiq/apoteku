@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transactions;
+use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionsController extends Controller
 {
@@ -32,8 +34,40 @@ class TransactionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate
+        $request->validate([
+            'address' => 'required',
+            'city' => 'required',
+            'post_code' => 'required',
+            'phone_number' => 'required',
+            'notes' => 'required',
+            'proof' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+        ]);
+
+        if ($request->hasFile('proof')) {
+            $proof = $request->file('proof');
+            $proof->storeAs('public/transactions', $proof->hashName());
+        } else {
+            return redirect()->back()->withErrors(['proof' => 'proof upload is required']);
+        }
+
+        Transactions::create([
+            'user_id' => Auth::id(),
+            'total_amount' => $request->total_amount,
+            'is_paid' => false,
+            'address' => $request->address,
+            'city' => $request->city,
+            'post_code' => $request->post_code,
+            'phone_number' => $request->phone_number,
+            'notes' => $request->notes,
+            'proof' => $proof->hashName(),
+        ]);
+
+        Cart::where('user_id', Auth::id())->delete();
+
+        return redirect()->route('dashboard')->with(['Success' => 'Transaction data successfully created and cart items removed']);
     }
+
 
     /**
      * Display the specified resource.
