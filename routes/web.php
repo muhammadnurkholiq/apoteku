@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('products', ProductController::class)->middleware('role:owner');
         Route::resource('categories', CategoryController::class)->middleware('role:owner');
+        Route::resource('transactions', TransactionsController::class)->middleware('role:owner');
     });
 });
 

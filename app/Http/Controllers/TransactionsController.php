@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductTransaction;
+use App\Models\Transactions;
 use Illuminate\Http\Request;
 
-class ProductTransactionController extends Controller
+class TransactionsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        // get
+        $transactions = Transactions::latest()->paginate(5);
+
+        // response
+        return view('admin.transactions.index', compact('transactions'));
     }
 
     /**
@@ -34,7 +38,7 @@ class ProductTransactionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ProductTransaction $productTransaction)
+    public function show(transactions $transactions)
     {
         //
     }
@@ -42,7 +46,7 @@ class ProductTransactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProductTransaction $productTransaction)
+    public function edit(transactions $transactions)
     {
         //
     }
@@ -50,7 +54,7 @@ class ProductTransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProductTransaction $productTransaction)
+    public function update(Request $request, transactions $transactions)
     {
         //
     }
@@ -58,7 +62,7 @@ class ProductTransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductTransaction $productTransaction)
+    public function destroy(transactions $transactions)
     {
         //
     }
