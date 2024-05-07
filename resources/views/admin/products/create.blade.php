@@ -19,7 +19,8 @@
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
                             <input type="text" name="name" id="name"
-                                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                placeholder="Enter name">
                             @error('name')
                                 <div class="alert alert-danger text-red-500 mt-2">
                                     {{ $message }}
@@ -30,7 +31,8 @@
                         <div class="mb-4">
                             <label for="price" class="block text-gray-700 text-sm font-bold mb-2">Price:</label>
                             <input type="number" name="price" id="price"
-                                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                placeholder="Enter price">
                             @error('price')
                                 <div class="alert alert-danger text-red-500 mt-2">
                                     {{ $message }}
@@ -41,7 +43,8 @@
                         <div class="mb-4">
                             <label for="about" class="block text-gray-700 text-sm font-bold mb-2">About:</label>
                             <textarea name="about" id="about"
-                                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                placeholder="Enter about"></textarea>
                             @error('about')
                                 <div class="alert alert-danger text-red-500 mt-2">
                                     {{ $message }}

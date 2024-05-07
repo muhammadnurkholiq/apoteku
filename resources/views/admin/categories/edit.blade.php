@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Product') }}
+            {{ __('Edit Category') }}
         </h2>
         <a href="{{ route('admin.categories.index') }}"
             class="text-blue-700 outline-blue-700 hover:bg-blue-800 hover:text-white font-bold py-2 px-4 rounded outline outline-2 hover:outline-none">
@@ -21,7 +21,7 @@
                             <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
                             <input type="text" name="name" id="name"
                                 class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                value="{{ old('title', $category->name) }}" placeholder="Enter name">
+                                value="{{ old('name', $category->name) }}" placeholder="Enter name">
                             @error('name')
                                 <div class="alert alert-danger text-red-500 mt-2">
                                     {{ $message }}

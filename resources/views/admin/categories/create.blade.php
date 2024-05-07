@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Product') }}
+            {{ __('Create Category') }}
         </h2>
         <a href="{{ route('admin.categories.index') }}"
             class="text-blue-700 outline-blue-700 hover:bg-blue-800 hover:text-white font-bold py-2 px-4 rounded outline outline-2 hover:outline-none">
