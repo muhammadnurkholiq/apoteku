@@ -24,6 +24,15 @@ class ProductController extends Controller
         return view('admin.products.index', compact('products'));
     }
 
+    public function buyerIndex()
+    {
+        // get 
+        $products = Product::with('category')->latest()->paginate(10);
+
+        // response
+        return view('dashboard', compact('products'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

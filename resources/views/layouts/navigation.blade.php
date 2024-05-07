@@ -16,25 +16,34 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
-                        {{ __('Products') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
-                        {{ __('Categories') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.transactions.index')" :active="request()->routeIs('admin.transactions.index')">
-                        {{ __('Transactions') }}
-                    </x-nav-link>
-                </div>
+                @unless (auth()->user()->hasRole('buyer'))
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+                            {{ __('Products') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+                            {{ __('Categories') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('admin.transactions.index')" :active="request()->routeIs('admin.transactions.index')">
+                            {{ __('Transactions') }}
+                        </x-nav-link>
+                    </div>
+                @endunless
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+
+                @unless (auth()->user()->hasRole('owner'))
+                    <a href="{{ route('cart.show') }}" class="me-4">
+                        <i class="fas fa-shopping-cart text-gray-700 hover:text-gray-800 h-6 w-6"></i>
+                    </a>
+                @endunless
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button

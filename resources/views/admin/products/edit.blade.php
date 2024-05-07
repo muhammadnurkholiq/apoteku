@@ -41,7 +41,7 @@
                             <label for="price" class="block text-gray-700 text-sm font-bold mb-2">Price:</label>
                             <input type="number" name="price" id="price"
                                 class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Enter price" value="{{ old('name', $product->price) }}">
+                                placeholder="Enter price" value="{{ old('name', number_format($product->price, 2)) }}">
                             @error('price')
                                 <div class="alert alert-danger text-red-500 mt-2">
                                     {{ $message }}

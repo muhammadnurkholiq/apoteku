@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -12,7 +13,27 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $cartItems = Cart::where('user_id', Auth::id())
+            ->with('product')
+            ->get();
+
+        $subTotal = $cartItems->reduce(function ($carry, $item) {
+            return $carry + $item->product->price;
+        }, 0);
+
+        $ppn = $subTotal * 0.11;
+
+        $deliveryFee = 10000;
+
+        $total = $subTotal + $ppn + $deliveryFee;
+
+        return view('cart.show', [
+            'cartItems' => $cartItems,
+            'subTotal' => $subTotal,
+            'ppn' => $ppn,
+            'deliveryFee' => $deliveryFee,
+            'total' => $total,
+        ]);
     }
 
     /**
@@ -26,9 +47,16 @@ class CartController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $productId)
     {
-        //
+        // create
+        Cart::create([
+            'user_id' => Auth::id(),
+            'product_id' => $productId,
+        ]);
+
+        // response
+        return back()->with('success', 'Product added to cart successfully!');
     }
 
     /**
@@ -58,8 +86,15 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cart $cart)
+    public function destroy($id)
     {
-        //
+        // get
+        $cartItem = Cart::findOrFail($id);
+
+        // delete
+        $cartItem->delete();
+
+        // response
+        return redirect()->route('cart.show')->with('success', 'Item removed from cart successfully!');
     }
 }

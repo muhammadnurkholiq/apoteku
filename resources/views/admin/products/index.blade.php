@@ -46,7 +46,7 @@
                                         <span class="text-center">{{ $product->name }}</span>
                                     </td>
                                     <td class="w-1/6 px-6 py-4 text-center whitespace-nowrap ">
-                                        Rp. {{ $product->price }}
+                                        Rp. {{ number_format($product->price, 2) }}
                                     </td>
                                     <td class="w-1/6 px-6 py-4 text-center whitespace-nowrap ">
                                         {{ $product->category->name }}
